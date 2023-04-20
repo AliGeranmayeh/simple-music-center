@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Music;
+use Illuminate\Support\Facades\Storage;
 
 class AddMusicController extends Controller
 {
@@ -14,6 +15,7 @@ class AddMusicController extends Controller
 
     public function store(Request $request)
     {
+        $storage = Storage::disk('music-center');
 
         // dd($request->image,$request->music);
        $request->validate([
@@ -25,21 +27,22 @@ class AddMusicController extends Controller
        ]);
 
        
-
+       $path = date('Y/m/d');
        $imageName = time().'-'.$request->name.'.'.$request->image->extension();
        $musicName =  time().'-'.$request->name.'.'.$request->music->extension();
-
        
+       $path_image=$storage->putFileAs("images/$path",$request->image,$imageName);
+       $path_music =$storage->putFileAs("musics/$path",$request->music,$musicName);
        
-       $request->image->move(public_path('uploads/images'),$imageName);
-       $request->music->move(public_path('uploads/musics'),$musicName);
+    //    $request->image->move(public_path('images/'.$path),$imageName);
+    //    $request->music->move(public_path('musics/'.$path),$musicName);
 
        Music::create([
         'name' => $request->name,
         'artist' => $request->artist,
         'description' => $request->description,
-        'image' => "uploads/images/$imageName",
-        'music' => "uploads/musics/$musicName"
+        'image' => $path_image,
+        'music' => $path_music
        ]);
 
        return redirect()->route('home');
