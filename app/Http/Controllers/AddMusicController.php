@@ -14,12 +14,14 @@ class AddMusicController extends Controller
 
     public function store(Request $request)
     {
+
+        // dd($request->image,$request->music);
        $request->validate([
            'name' => 'required|string',
            'artist' => 'required|string',
-           'description' => 'required|string',
-           'image' => 'required|mimetypes:jpg,png,jpeg',
-           'music' => 'required|mimetypes:mp3,mpeg'
+           'description' => 'required',
+           'image' => 'required|mimes:jpg,png,jpeg',
+           'music' => 'required|mimes:mp3,mpeg'
        ]);
 
        
