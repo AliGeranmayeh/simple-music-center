@@ -24,7 +24,7 @@
               </div>
               <div class="form-group my-3">
                 <label for="more_info">More Information</label>
-                <textarea class="form-control" id="more_info" name="more_info" rows="3"></textarea>
+                <textarea class="form-control" id="more_info" name="description" rows="3"></textarea>
               </div>
               <div class="mb-3 my-3">
                 <label for="image" class="form-label">Please enter cover of music</label>
