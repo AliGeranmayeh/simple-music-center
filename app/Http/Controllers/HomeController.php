@@ -29,4 +29,12 @@ class HomeController extends Controller
             'musics' => $musics
         ]);
     }
+    public function delete(Request $request)
+    {
+        $music = Music::destroy($request->delete);
+        $musics = Music::all();
+        return view('home',[
+            'musics' => $musics
+        ]);
+    }
 }

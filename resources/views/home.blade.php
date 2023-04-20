@@ -20,7 +20,13 @@
                 </li>
                 <li class="list-group-item">Music Description: {{$music->description}}</li>
                 </ul>
+                <form action="" method="post" >
+                    @csrf
+                    <button style="width: 95%" type="submit" class="btn btn-danger" name="delete" value="{{$music->id}}">Delete</button>
+                </form>
+                
             </div>
+
             @endforeach
         </div>
       </div>
