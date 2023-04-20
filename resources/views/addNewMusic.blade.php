@@ -1,8 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
+        @if ($errors->any())
+        <div class="alert alert-danger " role="alert" style="width: 60%" >
+            @foreach ($errors->all() as $error)
+            <p>{{$error}}</p>
+            @endforeach
+            
+          </div>
+    @endif
         <form method="post" enctype="multipart/form-data" style="width: 60%">
             @csrf
             <div class="form-group my-3" >
