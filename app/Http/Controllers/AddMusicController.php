@@ -27,7 +27,10 @@ class AddMusicController extends Controller
        
 
        $imageName = time().'-'.$request->name.'.'.$request->image->extension();
-       $musicName =  time().'-'.$request->music.'.'.$request->music->extension();
+       $musicName =  time().'-'.$request->name.'.'.$request->music->extension();
+
+       
+       
        $request->image->move(public_path('uploads/images'),$imageName);
        $request->music->move(public_path('uploads/musics'),$musicName);
 
@@ -35,8 +38,8 @@ class AddMusicController extends Controller
         'name' => $request->name,
         'artist' => $request->artist,
         'description' => $request->description,
-        'image' => $request->image,
-        'music' => $request->music
+        'image' => "uploads/images/$imageName",
+        'music' => "uploads/musics/$musicName"
        ]);
 
        return redirect()->route('home');
