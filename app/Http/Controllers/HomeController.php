@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Music;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $musics = Music::all();
         return view('home',[
             'musics' => $musics
@@ -31,7 +33,14 @@ class HomeController extends Controller
     }
     public function delete(Request $request)
     {
-        $music = Music::destroy($request->delete);
+        $storage = Storage::disk('music-center');
+
+        $music=Music::find($request->delete);
+
+        $storage->delete([$music->image,$music->music]);
+//        Storage::delete("/$music->image");
+//        Storage::delete("/$music->music");
+        Music::destroy($request->delete);
         $musics = Music::all();
         return view('home',[
             'musics' => $musics
